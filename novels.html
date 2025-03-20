@@ -14,15 +14,25 @@
         <a href="contact.html">📩 Contact</a>
     </nav>
     <hr>
-    
-    <h1>Available Novels</h1>
-    <ul>
-        <li><a href="read.html?novel=novel1">🔹 Novel 1</a></li>
-        <li><a href="read.html?novel=novel2">🔹 Novel 2</a></li>
-    </ul>
-    <hr>
-    <footer>
-        <p>📚 Webnovel Site | Made with ❤️</p>
-    </footer>
+
+    <h1>📚 Available Novels</h1>
+    <div id="novel-list"></div>
+
+    <script>
+        // Fetch novel list from GitHub API
+        fetch("https://api.github.com/repos/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/contents/novels")
+        .then(response => response.json())
+        .then(data => {
+            let novelsHTML = "";
+            data.forEach(file => {
+                if (file.name.endsWith(".txt")) {
+                    let novelTitle = file.name.replace("_", " ").replace(".txt", "");
+                    novelsHTML += `<p><a href="read.html?title=${novelTitle}&file=${file.path}">📖 Read ${novelTitle}</a></p>`;
+                }
+            });
+            document.getElementById("novel-list").innerHTML = novelsHTML;
+        })
+        .catch(error => console.error("Error loading novels:", error));
+    </script>
 </body>
 </html>

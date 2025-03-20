@@ -1,24 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Read Novel</title>
-</head>
-<body>
-    <nav>
-        <a href="index.html">🏠 Home</a> |
-        <a href="novels.html">📖 Novels</a> |
-        <a href="upload.html">📝 Upload</a> |
-        <a href="about.html">❓ About</a> |
-        <a href="contact.html">📩 Contact</a>
-    </nav>
-    <hr>
+<h1 id="novel-title">📖 Reading: </h1>
+<p id="novel-content">📜 Loading content...</p>
 
-    <h1>📖 Reading: Novel Title</h1>
-    <p>📜 Chapter 1: Lorem ipsum dolor sit amet...</p>
+<script>
+    // Get the novel name from the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const title = urlParams.get('title') || "Unknown Novel";
+    const chapter = urlParams.get('chapter') || "1";
     
-    <hr>
-    <a href="novels.html">🔙 Back to Novels</a>
-</body>
-</html>
+    // Change the content dynamically
+    document.getElementById('novel-title').innerText = `📖 Reading: ${title}`;
+    document.getElementById('novel-content').innerText = `📜 Chapter ${chapter}: This is where the novel content will be loaded.`;
+</script>

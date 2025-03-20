@@ -1,13 +1,38 @@
-<h1 id="novel-title">📖 Reading: </h1>
-<p id="novel-content">📜 Loading content...</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Novel</title>
+</head>
+<body>
+    <nav>
+        <a href="index.html">🏠 Home</a> |
+        <a href="novels.html">📖 Novels</a> |
+        <a href="upload.html">📝 Upload</a> |
+        <a href="about.html">❓ About</a> |
+        <a href="contact.html">📩 Contact</a>
+    </nav>
+    <hr>
 
-<script>
-    // Get the novel name from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const title = urlParams.get('title') || "Unknown Novel";
-    const chapter = urlParams.get('chapter') || "1";
-    
-    // Change the content dynamically
-    document.getElementById('novel-title').innerText = `📖 Reading: ${title}`;
-    document.getElementById('novel-content').innerText = `📜 Chapter ${chapter}: This is where the novel content will be loaded.`;
-</script>
+    <h1 id="novel-title">📖 Reading: </h1>
+    <p id="novel-content">📜 Loading...</p>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const filePath = urlParams.get("file") || "";
+        const title = urlParams.get("title") || "Unknown Novel";
+
+        document.getElementById("novel-title").innerText = `📖 Reading: ${title}`;
+
+        if (filePath) {
+            fetch(`https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YOUR_REPO_NAME/main/${filePath}`)
+            .then(response => response.text())
+            .then(content => {
+                document.getElementById("novel-content").innerText = content;
+            })
+            .catch(error => console.error("Error loading novel:", error));
+        }
+    </script>
+</body>
+</html>
